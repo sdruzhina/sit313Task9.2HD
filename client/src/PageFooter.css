@@ -1,0 +1,28 @@
+.footer-flexbox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-group {
+  display: flex;
+}
+
+.footer-text {
+  color: white;
+  font-size: large;
+  text-align: left;
+  text-transform: uppercase;
+  padding-top: 10px;
+  margin-right: 20px;;
+}
+
+.social {
+  display: flex;
+}
+
+.social img {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
