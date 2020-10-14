@@ -9,7 +9,7 @@ function RequesterTasks() {
     <div>
       <Container>
         <Header as='h1'>
-          Requester Tasks
+          My Tasks
         </Header>
         <Link to='/create'>
           <Button positive className="new-task-button">+ New Task</Button>

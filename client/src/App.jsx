@@ -3,12 +3,10 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import PageHeader from './PageHeader';
 import RequesterTasks from './Requester/RequesterTasks';
 import CreateTask from './Requester/CreateTask';
-import WorkerTasks from './Worker/WorkerTasks';
 import SignupForm from './Auth/SignupForm';
 import LoginForm from './Auth/LoginForm';
 import Logout from './Auth/Logout';
 import RequesterRoute from './Auth/RequesterRoute';
-import WorkerRoute from './Auth/WorkerRoute';
 import './App.css';
 
 // Create context to share authentication data between components
@@ -61,21 +59,8 @@ function App() {
           payload: { user, token }
         });
       }
-  }, [])
+  }, []);
 
-  // Get user data from local storage
-  let redirect;
-  if(state.user) {
-    if(state.user.isWorker) {
-      redirect = <Redirect to='/worker' />;
-    }
-    if(state.user.isRequester) {
-      redirect = <Redirect to='/requester' />;
-    }
-  }
-  else {
-    redirect = <Redirect to='/login' />;
-  }
 
   return (
     <AuthContext.Provider
@@ -85,13 +70,12 @@ function App() {
         <Router>
         <PageHeader />
           <Route exact path='/'>
-            {redirect}
+            {state.user ? <Redirect to='/requester' /> : <Redirect to='/login' />}
           </Route>
           <RequesterRoute path='/requester' component={RequesterTasks} />
           <RequesterRoute path='/create' component={CreateTask} />
-          <WorkerRoute path='/worker' component={WorkerTasks} />
-          <Route path='/signup'>{state.user ? redirect : <SignupForm/>}</Route>
-          <Route path='/login'>{state.user ? redirect : <LoginForm/>}</Route>
+          <Route path='/signup'>{state.user ? <Redirect to='/requester' /> : <SignupForm/>}</Route>
+          <Route path='/login'>{state.user ? <Redirect to='/requester' /> : <LoginForm/>}</Route>
           <Route path='/logout' component={Logout} />
         </Router>
       </div>

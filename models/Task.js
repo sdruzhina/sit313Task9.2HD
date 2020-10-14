@@ -16,38 +16,27 @@ const taskSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        type: {
-            type: String,
-            required: true,
-            enum: ['CHOICE', 'DECISION', 'SENTENCE', 'IMAGE'],
-            default: 'CHOICE'
-        },
         setup: {
             type: Object,
             of: String,
             required: true
         },
-        master: {
-            type: Boolean
-        },
-        numberWorkers: {
-            type: Number,
-            default: 1
-        },
-        reward: {
-            type: Number
-        },
-        expiry: {
-            type: Date,
-            required: true
+        response: {
+            type: Object,
+            of: String
         },
         status: {
             type: String,
             required: true,
-            enum: ['AVAILABLE', 'ACCEPTED', 'COMPLETED'],
-            default: 'AVAILABLE'
+            enum: ['NEW', 'PROCESSING', 'COMPLETED'],
+            default: 'NEW'
         },
         createdAt: {
+            type: Date,
+            required: true,
+            default: Date.now()
+        },
+        updatedAt: {
             type: Date,
             required: true,
             default: Date.now()

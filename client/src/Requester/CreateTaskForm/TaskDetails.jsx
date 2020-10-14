@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Form, Input } from 'semantic-ui-react';
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
 function TaskDetails(props) {
@@ -12,7 +11,7 @@ function TaskDetails(props) {
 
   return (
     <div>
-      <Header inverted block color='grey'>Describe your task to Workers</Header>
+      <Header inverted block color='grey'>Describe your task</Header>
       <Form className='form-container'>
         <Form.Group inline>
           <Form.Field>
@@ -36,16 +35,6 @@ function TaskDetails(props) {
               placeholder='Enter task description' 
               value={props.description}
               style={{width: "480px"}}
-              onChange={handleChange}
-            />
-          </Form.Field>
-        </Form.Group>
-        <Form.Group inline>
-          <Form.Field>
-            <label className='label'>Expiry</label>
-            <SemanticDatepicker 
-              datePickerOnly={true}
-              name='expiry'
               onChange={handleChange}
             />
           </Form.Field>

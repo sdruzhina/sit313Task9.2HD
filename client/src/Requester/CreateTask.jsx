@@ -4,12 +4,7 @@ import './CreateTask.css';
 import { Container, Segment, Header, Button, Modal } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { AuthContext } from "../App";
-import TaskType from './CreateTaskForm/TaskType';
 import TaskDetails from './CreateTaskForm/TaskDetails';
-import WorkerRequirements from './CreateTaskForm/WorkerRequirements';
-import TaskSetupChoice from './CreateTaskForm/TaskSetupChoice';
-import TaskSetupDecision from './CreateTaskForm/TaskSetupDecision';
-import TaskSetupSentence from './CreateTaskForm/TaskSetupSentence';
 import TaskSetupImage from './CreateTaskForm/TaskSetupImage';
 
 function CreateTask() {
@@ -21,14 +16,9 @@ function CreateTask() {
 
   // Form data
   const [taskData, setTaskData] = useState({
-    type: 'CHOICE',
     title: '',
     description: '',
-    expiry: '',
     setup: null,
-    master: false,
-    numberWorkers: 1,
-    reward: 0
   });
 
   // Confirmation modal state
@@ -86,33 +76,6 @@ function CreateTask() {
     .catch((err) => console.log(err));
   }
 
-  // Render appropriate celement depending on task type
-  function renderTaskSetup() {
-    switch (taskData.type) {
-      case 'CHOICE':
-        return <TaskSetupChoice
-          setup={taskData.setup} 
-          onTaskDetailsChange={handleChange}  
-        />;
-      case 'DECISION':
-        return <TaskSetupDecision
-          setup={taskData.setup} 
-          onTaskDetailsChange={handleChange}  
-        />;
-      case 'SENTENCE':
-        return <TaskSetupSentence
-          setup={taskData.setup} 
-          onTaskDetailsChange={handleChange}  
-        />;
-        case 'IMAGE':
-          return <TaskSetupImage
-            setup={taskData.setup} 
-            onTaskDetailsChange={handleChange}  
-          />;
-      default:
-        return null;
-    }
-  }
 
   return (
     <div>
@@ -121,24 +84,14 @@ function CreateTask() {
           New Task
         </Header>
         <Segment>
-          <TaskType 
-            type={taskData.type} 
-            onTaskTypeChange={handleChange} 
-          />
           <TaskDetails 
             title={taskData.title} 
             description={taskData.description} 
-            expiry={taskData.expiry} 
             onTaskDetailsChange={handleChange} 
           />
-
-          {renderTaskSetup()}
-
-          <WorkerRequirements 
-            master={taskData.master} 
-            reward={taskData.reward} 
-            numberWorkers={taskData.numberWorkers} 
-            onTaskDetailsChange={handleChange} 
+          <TaskSetupImage
+            setup={taskData.setup} 
+            onTaskDetailsChange={handleChange}  
           />
           <div className='action-buttons'>
             <Link to='/'>

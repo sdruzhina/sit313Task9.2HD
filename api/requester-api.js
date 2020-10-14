@@ -46,10 +46,6 @@ router.post('/requester/tasks', (req, res, next) => {
             console.log(info.message);
             res.status(401).send(info.message);
         } 
-        if (!user.isRequester) {
-            console.log('User is not a requester');
-            res.status(403).send('User is not a requester');
-        }
         // Validate image task setup
         if (
             req.body.type === 'IMAGE' && !req.body.setup.filename
@@ -63,13 +59,7 @@ router.post('/requester/tasks', (req, res, next) => {
                 requesterId: user._id,
                 title: req.body.title,
                 description: req.body.description,
-                type: req.body.type,
                 setup: req.body.setup,
-                master: req.body.master,
-                numberWorkers: req.body.numberWorkers,
-                reward: req.body.reward,
-                expiry: Date.parse(req.body.expiry),
-                createdAt: Date.now()
             });
             task.save((err) => {
                 if (err) {

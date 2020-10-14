@@ -10,7 +10,6 @@ const fileupload = require('express-fileupload');
 // Routes and API
 const authApi = require('./api/auth-api');
 const requesterApi = require('./api/requester-api');
-const workerApi = require('./api/worker-api');
 const config = require('./config');
 
 // Passport configuration file
@@ -37,7 +36,6 @@ app.use(cors());
 app.use(fileupload());
 app.use(authApi);
 app.use(requesterApi);
-app.use(workerApi);
 
 let port = process.env.PORT;
 if (port == null || port == '') {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Moment from 'moment';
-import { Grid, Card, Icon, Image } from 'semantic-ui-react' 
+import { Grid, Card, Label, Image } from 'semantic-ui-react' 
 import './TaskCard.css';
 
 function TaskCard(props) {
@@ -10,9 +10,9 @@ function TaskCard(props) {
     setExpanded(!expanded);
   }
 
-  // Show the image if the task is of the image processing type
+  // Show the image once it's uploaded
   const renderImage = () => {
-    if (props.type === 'IMAGE' && props.setup.filename) {
+    if (props.setup.filename) {
       return(
         <Image src={'http://localhost:8080' + props.setup.filename} size='small' className='task-image'/>
       );
@@ -29,8 +29,6 @@ function TaskCard(props) {
             <div className='container'>
               <div>
                 <Card.Description className='description'>{props.description}</Card.Description>
-                <Card.Meta>Number of workers required: {props.numberWorkers}</Card.Meta>
-                <Card.Meta>Master workers: {props.master ? 'YES' : 'NO'}</Card.Meta>
               </div>
           </div>
         </div>
@@ -38,16 +36,28 @@ function TaskCard(props) {
     );
   }
 
+  // Determine llabel colour based on task status
+  const labelColour = () => {
+    switch (props.status) {
+      case 'NEW':
+        return 'blue';
+      case 'PROCESSING':
+        return 'orange';
+      case 'COMPLETED':
+        return 'green';
+    }
+  }
+
   return (
     <Card fluid color='blue'>
       <Card.Content onClick={expand} className='clickable'>
         <Grid>
-          <Grid.Column floated='left' width={10}>
+          <Grid.Column floated='left' width={9}>
             <Card.Header className='card-header'>{props.title}</Card.Header>
           </Grid.Column>
-          <Grid.Column floated='right' width={2} className='align-right'>
+          <Grid.Column floated='right' width={3} className='align-right'>
             <Card.Meta>                  
-              {(props.type.toLowerCase()).replace(/^.{1}/g, props.type[0].toUpperCase()) + ' Task'}
+              Created: {Moment(Date.parse(props.createdAt)).format('DD MMM HH:mm:SS')}
             </Card.Meta>
           </Grid.Column>
         </Grid>
@@ -56,12 +66,7 @@ function TaskCard(props) {
       <Card.Content extra>
         <Grid>
           <Grid.Column floated='left' width={10}>
-            <Icon name='dollar' />{props.reward}
-          </Grid.Column>
-          <Grid.Column floated='right' width={2} className='align-right'>
-            <Card.Meta>                  
-              <Icon name='clock' style={{marginRight: '10px' }} />{Moment(Date.parse(props.expiry)).format('DD MMM')}
-            </Card.Meta>
+            <Label color={labelColour}>{props.status}</Label>
           </Grid.Column>
         </Grid>
       </Card.Content>

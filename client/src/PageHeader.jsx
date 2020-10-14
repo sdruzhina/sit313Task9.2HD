@@ -8,22 +8,12 @@ function PageHeader() {
   const { state: authState } = useContext(AuthContext);
 
   const requesterMenu = 
-    authState.user && authState.user.isRequester 
+    authState.user
       ? <Menu.Item 
         as={NavLink}
         to='requester'
         activeClassName='active'
-        name='Requester'
-      />
-      : null;
-
-  const workerMenu = 
-    authState.user && authState.user.isWorker 
-      ? <Menu.Item 
-        as={NavLink}
-        to='worker'
-        activeClassName='active'
-        name='Worker'
+        name='Tasks'
       />
       : null;
 
@@ -57,10 +47,7 @@ function PageHeader() {
             <Menu.Item>
               <h3>iCrowdTask</h3>
             </Menu.Item>
-
             {requesterMenu}
-            {workerMenu}
-
             {loginLogoutButton}
           </Container>
         </Menu>

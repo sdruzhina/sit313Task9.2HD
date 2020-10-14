@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { Button, Form, Checkbox, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { AuthContext } from "../App";
-import './SignupForm.css';
 
 function SignupForm() {
   // Context for authentication state
@@ -14,8 +13,6 @@ function SignupForm() {
     email: '',
     password: '',
     passwordConfirm: '',
-    isRequester: true,
-    isWorker: false
   });
   
   // Event handler
@@ -103,29 +100,6 @@ function SignupForm() {
               required
               onChange={handleChange} 
             />
-            <div className='form-flex'>
-              <Form.Field>
-                Sign up as: 
-              </Form.Field>
-              <Form.Field>
-                <Checkbox
-                  className='flex-item'
-                  label='Requester'
-                  name='isRequester'
-                  checked={userData.isRequester}
-                  onChange={handleChange} 
-                />
-              </Form.Field>
-              <Form.Field>
-                <Checkbox
-                  className='flex-item'
-                  label='Worker'
-                  name='isWorker'
-                  checked={userData.isWorker}
-                  onChange={handleChange}
-                />
-              </Form.Field>
-            </div>
             <Button color='blue' fluid size='large'>
               Create Account
             </Button>
