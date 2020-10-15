@@ -21,8 +21,11 @@ const initialState = {
 // Check if JWT has expired
 function jwtValid() {
   const token = localStorage.getItem('id_token');
-  const decodedToken = jwt.decode(token, {complete: true});
-  return decodedToken.exp < new Date();
+  if (token) {
+    const decodedToken = jwt.decode(token, {complete: true});
+    return decodedToken.exp < new Date();
+  }
+  return false;
 }
 
 // Reducer actions for login and logout
