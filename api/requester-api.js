@@ -7,6 +7,7 @@ const User = require('../models/User');
 const Task = require('../models/Task');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const watson = require('./watson');
 
 // Get all tasks created by the requester
 router.get('/requester/tasks', (req, res, next) => {
@@ -98,8 +99,13 @@ router.post('/image-upload', (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
+
+        // Watson 
+        watson.classify('http://sit313task92hd.herokuapp.com/uploads/' + filename);
+
+
         res.end(JSON.stringify({ status: 'success', path: '/uploads/' + filename }));
-    })
-  })
+    });
+})
 
 module.exports = router;
