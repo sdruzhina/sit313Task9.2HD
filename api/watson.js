@@ -33,13 +33,7 @@ module.exports = {
                 },
                 { upsert: false }, function(err, result) {
                 if (err) {
-                    res.json(err);
-                }
-                else {
-                    res.json({ 
-                        status: 'success', 
-                        message: 'Task successfully updated.' 
-                    })
+                    console.log(err);
                 }
             });
             
