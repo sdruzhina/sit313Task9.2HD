@@ -37,6 +37,12 @@ app.use(fileupload());
 app.use(authApi);
 app.use(requesterApi);
 
+// Detect production environment and build client
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+
 let port = process.env.PORT;
 if (port == null || port == '') {
   port = 8080;
