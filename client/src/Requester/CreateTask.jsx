@@ -63,7 +63,7 @@ function CreateTask() {
 
   // Save the task to DB
   function saveTask() {
-    fetch('http://localhost:8080/requester/tasks', {
+    fetch('/requester/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

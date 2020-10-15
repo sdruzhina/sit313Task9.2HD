@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(cors());
 app.use(fileupload());
-app.use(authApi);
+app.use('/auth', authApi);
 app.use(requesterApi);
 
 // Detect production environment and build client

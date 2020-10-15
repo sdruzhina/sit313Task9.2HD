@@ -11,7 +11,7 @@ function TaskList() {
 
   // Load cards on mount
   useEffect(() => {
-    fetch('http://localhost:8080/requester/tasks', {
+    fetch('/requester/tasks', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

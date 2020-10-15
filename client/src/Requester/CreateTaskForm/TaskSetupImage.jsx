@@ -17,7 +17,7 @@ function TaskSetupImage(props) {
     const formData = new FormData()
     formData.append('myFile', files[0])
   
-    fetch('http://localhost:8080/image-upload', {
+    fetch('/image-upload', {
       method: 'POST',
       body: formData
     })
@@ -39,7 +39,7 @@ function TaskSetupImage(props) {
           This task will require the worker to tag objects in the uploaded image.
         </Form.Field>
         {image.filename 
-          ? <Image src={'http://localhost:8080' + image.filename} size='medium' /> 
+          ? <Image src={image.filename} size='medium' /> 
           : <Form.Group inline>
               <Form.Field>
                 <label className='label'>Image</label>

@@ -31,7 +31,7 @@ function SignupForm() {
     e.preventDefault();
 
     // Send credentials to backend
-    fetch('http://localhost:8080/register', {
+    fetch('/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

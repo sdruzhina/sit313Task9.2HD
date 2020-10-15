@@ -28,7 +28,7 @@ function TaskList(props) {
 
   // Load cards on mount
   useEffect(() => {
-    fetch('http://localhost:8080/worker/tasks', {
+    fetch('/worker/tasks', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ function TaskList(props) {
 
     // Send the request to the API
     const userId = authState.user._id;
-    fetch(`http://localhost:8080/worker/${userId}/workertasks/${taskId}`, {
+    fetch(`/worker/${userId}/workertasks/${taskId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

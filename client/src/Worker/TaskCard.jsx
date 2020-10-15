@@ -20,7 +20,7 @@ function TaskCard(props) {
   const renderImage = () => {
     if (props.type === 'IMAGE' && props.setup.filename) {
       return(
-        <Image src={'http://localhost:8080' + props.setup.filename} size='small' className='task-image'/>
+        <Image src={props.setup.filename} size='small' className='task-image'/>
       );
     }
     return null;

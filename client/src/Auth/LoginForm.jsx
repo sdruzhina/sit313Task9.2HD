@@ -28,7 +28,7 @@ function LoginForm() {
     e.preventDefault();
 
     // Send credentials to backend
-    fetch('http://localhost:8080/login', {
+    fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
