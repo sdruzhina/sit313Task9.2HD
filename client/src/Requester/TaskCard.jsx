@@ -36,7 +36,7 @@ function TaskCard(props) {
     );
   }
 
-  // Determine llabel colour based on task status
+  // Determine label colour based on task status
   const labelColour = () => {
     switch (props.status) {
       case 'NEW':
@@ -45,6 +45,8 @@ function TaskCard(props) {
         return 'orange';
       case 'COMPLETED':
         return 'green';
+      default:
+        return 'grey';
     }
   }
 
@@ -66,7 +68,7 @@ function TaskCard(props) {
       <Card.Content extra>
         <Grid>
           <Grid.Column floated='left' width={10}>
-            <Label color={labelColour}>{props.status}</Label>
+            <Label color={labelColour()}>{props.status}</Label>
           </Grid.Column>
         </Grid>
       </Card.Content>

@@ -23,7 +23,6 @@ function TaskSetupImage(props) {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
       setImage({filename: response.path});
     })
     .catch(error => {

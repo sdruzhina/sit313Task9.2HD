@@ -1,3 +1,13 @@
-.new-task-button {
-  margin-bottom: 20px !important;
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date-filter {
+  display: flex; 
+}
+
+.date-label {
+  padding: 10px 10px 0 10px;
 }
