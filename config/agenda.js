@@ -11,8 +11,8 @@ const agenda = new Agenda({
 });
 
 agenda.define('process image', {priority: 'high', concurrency: 10}, async job => {
-    const {fileName} = job.attrs.data.fileName;
-    const {taskId} = job.attrs.data.taskId;
+    const fileName = job.attrs.data.fileName;
+    const taskId = job.attrs.data.taskId;
     // Run Watson 
     await watson.classify('http://sit313task92hd.herokuapp.com' + fileName, taskId);
 });
