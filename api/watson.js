@@ -24,7 +24,7 @@ module.exports = {
             const classifiedImages = response.result;
             console.log(JSON.stringify(classifiedImages, null, 2));
 
-            // Update the task in DB
+            // Update the task in DB if successful
             Task.updateOne(
                 { _id: taskId },
                 { 
@@ -40,6 +40,20 @@ module.exports = {
         })
         .catch(err => {
             console.log('error:', err);
+            
+            // Update the task in DB if failed
+            Task.updateOne(
+                { _id: taskId },
+                { 
+                    status: 'FAILED',
+                    response: err,
+                    updatedAt: Date.now()
+                },
+                { upsert: false }, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
         });
     }
 }

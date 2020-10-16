@@ -37,7 +37,8 @@ function RequesterTasks() {
     { key: '', value: null, text: 'All' },
     { key: 'NEW', value: 'NEW', text: 'New' },
     { key: 'PROCESSING', value: 'PROCESSING', text: 'Processing' },
-    { key: 'COMPLETED', value: 'COMPLETED', text: 'Completed' }
+    { key: 'COMPLETED', value: 'COMPLETED', text: 'Completed' },
+    { key: 'FAILED', value: 'FAILED', text: 'Failed' }
   ];
 
 
