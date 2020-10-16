@@ -19,6 +19,11 @@ const renderBars = (response) => {
       </Progress>
     ));
   }
+  else if (response && response.message) {
+    return(
+        <p>Error: {response.message}</p>
+    );
+  }
   return null;
 }
 
