@@ -5,7 +5,11 @@ const watson = require('../api/watson');
 const agenda = new Agenda({
     db: {
         address: process.env.MONGO_URI || config.mongoDB.uri, 
-        collection: 'agenda'
+        collection: 'agenda',
+        options: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
     },
     processEvery: '30 seconds'
 });

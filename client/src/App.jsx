@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import PageHeader from './PageHeader';
 import RequesterTasks from './Requester/RequesterTasks';
 import CreateTask from './Requester/CreateTask';
@@ -18,16 +17,6 @@ const initialState = {
   token: null
 };
 
-// Check if JWT has expired
-function jwtValid() {
-  const token = localStorage.getItem('id_token');
-  if (token) {
-    const decodedToken = jwt.decode(token, {complete: true});
-    return decodedToken.exp < new Date();
-  }
-  return false;
-}
-
 // Reducer actions for login and logout
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,20 +29,11 @@ const reducer = (state, action) => {
         token: action.payload.token
       };
     case 'AUTHENTICATE':
-      if (jwtValid()) {
         return {
           ...state,
           user: action.payload.user,
           token: action.payload.token
         };
-      }
-      else {
-        localStorage.clear();
-        return {
-          ...state,
-          user: null
-        };
-      }
     case 'LOGOUT':
       localStorage.clear();
       return {
