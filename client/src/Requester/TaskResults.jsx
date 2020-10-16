@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import Moment from 'moment';
 import { Header, Progress } from 'semantic-ui-react' 
-import './TaskResults.css';
 
 // Bar Colours
-const colours = ['red', 'yellow', 'green', 'blue', 'purple', 'teal', 'brown', 'grey'];
+const colours = ['purple', 'blue', 'green', 'yellow', 'red', 'brown', 'teal'];
 
 // Render result bars
 const renderBars = (response) => {
@@ -15,7 +14,7 @@ const renderBars = (response) => {
         key={index}
         percent={(classifier.score * 100).toFixed(2)}
         size='tiny'
-        color={colours[index]}
+        color={index < colours.length ? colours[index] : colours[index % colours.length]}
       >
         {classifier.class.toLowerCase() + ': ' + (classifier.score * 100).toFixed(2)}% 
       </Progress>
@@ -29,7 +28,7 @@ function TaskResults(props) {
   return (
     <Fragment>
       <Header as='h3'>Result</Header>
-      {renderBars(props.response)}
+      {props.response ? renderBars(props.response) : <p>Result not available yet...</p>}
     </Fragment>
   );
 }
