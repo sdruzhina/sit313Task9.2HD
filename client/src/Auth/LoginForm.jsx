@@ -11,6 +11,9 @@ function LoginForm() {
     email: '',
     password: ''
   });
+
+  // Errors
+  const [error, setError] = useState(null);
   
   // Event handler
   const handleChange = (e, data) => {
@@ -46,6 +49,7 @@ function LoginForm() {
     })
     .catch((err) => {
       console.log(err);
+      setError(true)
     });
   };
 
@@ -82,6 +86,12 @@ function LoginForm() {
             </Button>
           </Segment>
         </Form>
+        {error 
+        ? <Message
+          error
+          content='Invalid email or password.'
+        /> 
+        : null}
         <Message>
           Don't have an account? <a href='/signup'>Sign Up</a>
         </Message>
