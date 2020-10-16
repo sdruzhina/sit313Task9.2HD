@@ -15,7 +15,8 @@ module.exports = {
         });
 
         const classifyParams = {
-        url: imageUrl,
+            url: imageUrl,
+            threshold: 0.6,
         };
 
         visualRecognition.classify(classifyParams)
@@ -36,7 +37,6 @@ module.exports = {
                     console.log(err);
                 }
             });
-            
         })
         .catch(err => {
             console.log('error:', err);

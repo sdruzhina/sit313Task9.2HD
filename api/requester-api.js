@@ -7,7 +7,7 @@ const User = require('../models/User');
 const Task = require('../models/Task');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
-const watson = require('./watson');
+const agenda = require('../config/agenda');
 
 // Get all tasks created by the requester
 router.get('/requester/tasks', (req, res, next) => {
@@ -62,11 +62,21 @@ router.post('/requester/tasks', (req, res, next) => {
                 description: req.body.description,
                 setup: req.body.setup,
             });
-            task.save((err) => {
+            task.save((err, task) => {
                 if (err) {
                     res.json(err);
                 }
                 else {
+                    // Add the task to the Agenda schedule
+                    (async function() {
+                        await agenda.start();
+                        await agenda.schedule(
+                            'in 30 seconds', 
+                            'process image', {
+                                fileName: task.setup.filename,
+                                taskId: task._id
+                            });
+                    })();
                     res.json({ 
                         status: 'success', 
                         message: 'Task successfully added.' 
@@ -95,15 +105,9 @@ router.post('/image-upload', (req, res) => {
             res.end(JSON.stringify({ status: 'error', message: error }));
             return;
         }
-    
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-
-        // Watson 
-        watson.classify('http://sit313task92hd.herokuapp.com/uploads/' + filename);
-
-
         res.end(JSON.stringify({ status: 'success', path: '/uploads/' + filename }));
     });
 })
