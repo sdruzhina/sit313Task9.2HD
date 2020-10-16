@@ -6,16 +6,16 @@ const userSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
-            required: [true, 'This field is required']
+            required: [true, 'First name is required']
         },
         lastName: {
             type: String,
-            required: [true, 'This field is required']
+            required: [true, 'Last name is required']
         },
         email: {
             type: String,
             trim: true,
-            required: [true, 'This field is required'],
+            required: [true, 'Email is required'],
             lowercase: true,
             validate(value) {
                 if (!validator.isEmail(value)){

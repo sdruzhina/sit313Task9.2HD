@@ -10,16 +10,16 @@ const taskSchema = new mongoose.Schema(
         },
         title: {
             type: String,
-            required: true
+            required: [true, 'Task title is required']
         },
         description: {
             type: String,
-            required: true
+            required: [true, 'Task description is required']
         },
         setup: {
             type: Object,
             of: String,
-            required: true
+            required: [true, 'Task setup info is required']
         },
         response: {
             type: Object,

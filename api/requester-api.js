@@ -48,11 +48,12 @@ router.post('/requester/tasks', (req, res, next) => {
             res.status(401).send(info.message);
         } 
         // Validate image task setup
-        if (
-            req.body.type === 'IMAGE' && !req.body.setup.filename
-        ) {
+        if (!req.body.setup.filename || req.body.setup.filename === '') {
             console.log('No image file uploaded');
-            res.status(422).send({ errors: {message: 'No image file uploaded'}});
+            res.status(422).send({ 
+                errors: {file: {name: 'ValidatorError', message: 'Image is required'}},
+                message: 'No image uploaded'
+            });
         }
         else {
             // Create a new task
