@@ -5,7 +5,7 @@ const Task = require('../models/Task');
 
 module.exports = {
     // Classify an image with IBM Watson
-    classify(imageUrl, taskId) {
+    async classify(imageUrl, taskId) {
         const visualRecognition = new VisualRecognitionV3({
         version: '2018-03-19',
         authenticator: new IamAuthenticator({
@@ -19,6 +19,20 @@ module.exports = {
             threshold: 0.6,
         };
 
+        // Set the task status to 'PROCESSING'
+        await Task.updateOne(
+            { _id: taskId },
+            { 
+                status: 'PROCESSING',
+                updatedAt: Date.now()
+            },
+            { upsert: false }, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+        });
+        
+        // Run the classification API request
         visualRecognition.classify(classifyParams)
         .then(response => {
             const classifiedImages = response.result;
@@ -40,7 +54,7 @@ module.exports = {
         })
         .catch(err => {
             console.log('error:', err);
-            
+
             // Update the task in DB if failed
             Task.updateOne(
                 { _id: taskId },

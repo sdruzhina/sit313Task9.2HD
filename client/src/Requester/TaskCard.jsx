@@ -20,6 +20,8 @@ function TaskCard(props) {
         return 'orange';
       case 'COMPLETED':
         return 'green';
+      case 'FAILED':
+        return 'red';
       default:
         return 'grey';
     }
