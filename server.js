@@ -6,6 +6,7 @@ const passport = require('passport')
 const passportLocalMongoose = require('passport-local-mongoose');
 const cors = require('cors');
 const fileupload = require('express-fileupload');
+const path = require('path');
 
 // Routes and API
 const authApi = require('./api/auth-api');
