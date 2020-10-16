@@ -14,6 +14,9 @@ function SignupForm() {
     password: '',
     passwordConfirm: '',
   });
+
+  // Errors
+  const [error, setError] = useState(null);
   
   // Event handler
   const handleChange = (e, data) => {
@@ -29,6 +32,8 @@ function SignupForm() {
   // Send user data to server
   const createUser = async (e) => {
     e.preventDefault();
+    // Reset errors
+    setError(null);
 
     // Send credentials to backend
     fetch('/auth/register', {
@@ -46,11 +51,24 @@ function SignupForm() {
           payload: response
         });
       }
+      else if (response.message) {
+        setError(response.message);
+      }
     })
     .catch((err) => {
       console.log(err);
     });
   };
+
+  const errorMessage = () => {
+    return (error 
+      ? <Message
+        error
+        content={error}
+      /> 
+      : null
+    );
+  }
 
   return (
     <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
@@ -105,6 +123,7 @@ function SignupForm() {
             </Button>
           </Segment>
         </Form>
+        {errorMessage()}
         <Message>
           Have an account? <a href='/login'>Log in</a>
         </Message>
