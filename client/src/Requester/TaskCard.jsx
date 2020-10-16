@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Moment from 'moment';
 import { Grid, Card, Label, Image } from 'semantic-ui-react' 
-import TaskResults from './TaskResults'
+import TaskCardDetails from './TaskCardDetails'
 import './TaskCard.css';
 
 function TaskCard(props) {
@@ -9,39 +9,6 @@ function TaskCard(props) {
   const [expanded, setExpanded] = useState(false);
   const expand = () => {
     setExpanded(!expanded);
-  }
-
-  // Show the image once it's uploaded
-  const renderImage = () => {
-    if (props.setup.filename) {
-      return(
-        <Image src={props.setup.filename} size='small' className='task-image'/>
-      );
-    }
-    return null;
-  }
-
-  // The part of the task card which is hidden and expands on click
-  const renderDetails = ()  => {
-    return(
-      <Card.Content>
-        <div className='flex-content'>
-          {renderImage()}
-            <div className='container'>
-              <Grid>
-                <Grid.Column floated='left' width={4}>
-                  <Card.Description className='description'>{props.description}</Card.Description>
-                </Grid.Column>
-                <Grid.Column width={6} floated='left'>
-                  <TaskResults 
-                    response={props.response}
-                  /> 
-                </Grid.Column>
-              </Grid>
-          </div>
-        </div>
-      </Card.Content>
-    );
   }
 
   // Determine label colour based on task status
@@ -72,7 +39,13 @@ function TaskCard(props) {
           </Grid.Column>
         </Grid>
       </Card.Content>
-      {expanded ? renderDetails() : null}
+      {expanded 
+      ? <TaskCardDetails 
+        description = {props.description}
+        setup = {props.setup}
+        response = {props.response} 
+        /> 
+      : null}
       <Card.Content extra>
         <Grid>
           <Grid.Column floated='left' width={10}>

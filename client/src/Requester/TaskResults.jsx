@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import Moment from 'moment';
+import React, { Fragment } from 'react';
 import { Header, Progress } from 'semantic-ui-react' 
 
 // Bar Colours
