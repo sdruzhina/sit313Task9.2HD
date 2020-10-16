@@ -42,6 +42,15 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
+// Send all requests to React router
+app.get('/*', function(req, res) {
+  console.log(__dirname);
+  res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 let port = process.env.PORT;
 if (port == null || port == '') {
