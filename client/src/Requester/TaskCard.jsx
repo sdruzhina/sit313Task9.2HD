@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Moment from 'moment';
 import { Grid, Card, Label, Image } from 'semantic-ui-react' 
+import TaskResults from './TaskResults'
 import './TaskCard.css';
 
 function TaskCard(props) {
@@ -27,9 +28,16 @@ function TaskCard(props) {
         <div className='flex-content'>
           {renderImage()}
             <div className='container'>
-              <div>
-                <Card.Description className='description'>{props.description}</Card.Description>
-              </div>
+              <Grid>
+                <Grid.Column floated='left' width={4}>
+                  <Card.Description className='description'>{props.description}</Card.Description>
+                </Grid.Column>
+                <Grid.Column width={6} floated='left'>
+                  <TaskResults 
+                    response={props.response}
+                  /> 
+                </Grid.Column>
+              </Grid>
           </div>
         </div>
       </Card.Content>
